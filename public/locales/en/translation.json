@@ -1,0 +1,15 @@
+{
+  "userBlock": "User is blocked",
+  "password": "Password",
+  "name": "Name",
+  "register": "Register",
+  "verification": "Verification",
+  "backLogin": "Back to login",
+  "incorrectData": "Incorrect login data",
+  "invalidPasswordOrEmail": "Invalid password or Email, try again",
+  "somethingWrong": "Something went wrong, try again",
+  "emailAlredyRegistered": "Email alredy registered",
+  "verificationError": "Wrong code entered or account is already activated",
+  "accountActivated": "Account activated",
+  "verifyCodeError": "Enter the verification code"
+}

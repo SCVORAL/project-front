@@ -1,0 +1,15 @@
+{
+  "userBlock": "Пользователь заблокирован",
+  "password": "Пароль",
+  "name": "Имя",
+  "register": "Регистрация",
+  "verification": "Верификация",
+  "backLogin": "На страницу авторизации",
+  "incorrectData": "Некоректные данные при входе в систему",
+  "invalidPasswordOrEmail": "Неверный пароль или Email, попробуйте снова",
+  "somethingWrong": "Что-то пошло не так, попробуйте снова",
+  "emailAlredyRegistered": "Такой email уже зарегистрирован",
+  "verificationError": "Введен неверный код или аккаунт уже активирован",
+  "accountActivated": "Аккаунт активирован",
+  "verifyCodeError": "Введите код верификации"
+}

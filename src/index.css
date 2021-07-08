@@ -1,0 +1,120 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.login-error{
+  color: red;
+}
+
+.section-fandom{
+
+}
+
+.section-fandom .item{
+  position: relative;
+  display: block;
+}
+
+.section-fandom .item .box-img{
+  position: relative;
+  padding-bottom: 125%;
+}
+
+.section-fandom .item .box-img img{
+  object-fit: cover;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.section-fandom .item .item-text{
+  position: absolute;
+  padding: 5px;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  width: 100%;
+  top: 60%;
+  transition: all .2s;
+}
+
+.section-fandom .item:hover .item-text{
+  background-color: #000;
+  color: #fff;
+}
+
+.section-add-fanfic .drag-and-drop-block {
+  position: relative;
+}
+
+.section-add-fanfic .drop-area{
+  width: 100%;
+  height: 250px;
+  border:  5px dashed black;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-add-fanfic .drop-area-blue{
+  color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.section-tag .del-tag {
+  background-color: rgb(49, 210, 242, .05);
+  border-radius: 3px;
+  padding: 3px 10px;
+  border: 1px solid #0dcaf0;
+}
+
+.section-tag .del-tag-btn {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.relative-host {
+  position: relative;
+}
+
+.options-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  border: 1px solid #cccccc;
+}
+
+.options-list_show {
+  display: block;
+}
+
+.options-list_hidden {
+  display: none;
+}
+
+.option{
+  background-color: #fff;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.option:not(.option:last-child) {
+  border-bottom: 1px solid #cccccc;
+}
+
+.option:hover {
+  background-color: #cecece;
+}
