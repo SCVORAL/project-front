@@ -8,7 +8,7 @@ export const Fandom = () => {
 
   const getFandom = async () => {
     // const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
-    const {data} = await axios.get(`https://project-front-react.herokuapp.com/api/fanfic/getFandom`)
+    const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/getFandom`)
     setFandom(data)
   }
 

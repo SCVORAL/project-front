@@ -25,7 +25,7 @@ export const SignUp = () => {
   const registerHandler = async () => {
     try {
       // const {data} = await axios.post(`http://localhost:5000/api/auth/register`, form)
-      const {data} = await axios.post(`https://project-front-react.herokuapp.com/api/auth/register`, form)
+      const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/auth/register`, form)
 
       if (data.error) {
         if (data.error == "1"){
@@ -50,7 +50,7 @@ export const SignUp = () => {
   const verifyHandler = async () => {
     try {
       // const {data} = await axios.post(`http://localhost:5000/api/auth/verify`, form)
-      const {data} = await axios.post(`https://project-front-react.herokuapp.com/api/auth/verify`, form)
+      const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/auth/verify`, form)
 
       if (data.error == "0"){
         setRegisterError(t("verifyCodeError"))
