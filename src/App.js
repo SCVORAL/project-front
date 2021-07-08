@@ -6,6 +6,10 @@ import {useAuth} from './hooks/auth'
 import { useTranslation } from "react-i18next"
 import {Navbar} from './components/Navbar'
 
+
+
+import axios from 'axios'
+
 function App() {
 
   const {token, login, logout, userId} = useAuth()
@@ -34,4 +38,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
