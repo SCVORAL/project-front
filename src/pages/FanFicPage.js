@@ -7,7 +7,8 @@ export const FanFicPage = props => {
 
   const getAllFanFic = async () => {
     const idFandom = props.match.params.id
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/getAllFanFic`, {idFandom})
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/getAllFanFic`, {idFandom})
+    const {data} = await axios.post(`https://project-front-react.herokuapp.com/api/fanfic/getAllFanFic`, {idFandom})
     setFanfic(data)
   }
 

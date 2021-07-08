@@ -18,19 +18,22 @@ export const AddFanFic = () => {
   const [fanDom, setFanDom] = useState([])
 
   const getTag = async () => {
-    const {data} = await axios.get(`http://localhost:5000/api/fanfic/gettags`)
+    // const {data} = await axios.get(`http://localhost:5000/api/fanfic/gettags`)
+    const {data} = await axios.get(`https://project-front-react.herokuapp.com/api/fanfic/gettags`)
 
     setTag(data)
   }
 
   const FanDom = async () => {
-    const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
+    // const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
+    const {data} = await axios.get(`https://project-front-react.herokuapp.com/api/fanfic/getFandom`)
 
     setFanDom(data)
   }
 
   const AddFanFicHandler = async () => {
-    await axios.post(`http://localhost:5000/api/fanfic/addfanfic`, {
+    // await axios.post(`http://localhost:5000/api/fanfic/addfanfic`, {
+    await axios.post(`https://project-front-react.herokuapp.com/api/fanfic/addfanfic`, {
       userId: JSON.parse(localStorage.getItem("userData")).userId,
       name: nameInput.forTpl.value,
       fandomId: fandomInput.forTpl.value.id,
