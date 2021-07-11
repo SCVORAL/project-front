@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useContext} from 'react'
 import {NavLink} from 'react-router-dom'
 import {AuthContext} from './../context/AuthContext'
 import axios from 'axios'
@@ -24,19 +24,19 @@ export const SignUp = () => {
 
   const registerHandler = async () => {
     try {
-      // const {data} = await axios.post(`http://localhost:5000/api/auth/register`, form)
-      const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/auth/register`, form)
+      const {data} = await axios.post(`http://localhost:5000/api/auth/register`, form)
+      // const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/auth/register`, form)
 
       if (data.error) {
-        if (data.error == "1"){
+        if (data.error === "1"){
           setRegisterError(t("emailAlredyRegistered"))
-        } else if (data.error == "2") {
+        } else if (data.error === "2") {
           setRegisterError(t("somethingWrong"))
-        } else if (data.error == "0") {
+        } else if (data.error === "0") {
           setRegisterError(t("incorrectData"))
-        } else if (data.error == "3"){
+        } else if (data.error === "3"){
           setRegisterError(t("verificationError"))
-        } else if (data.error == "4") {
+        } else if (data.error === "4") {
           setRegisterError(t("accountActivated"))
         }
       } else {
@@ -49,16 +49,16 @@ export const SignUp = () => {
 
   const verifyHandler = async () => {
     try {
-      // const {data} = await axios.post(`http://localhost:5000/api/auth/verify`, form)
-      const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/auth/verify`, form)
+      const {data} = await axios.post(`http://localhost:5000/api/auth/verify`, form)
+      // const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/auth/verify`, form)
 
-      if (data.error == "0"){
+      if (data.error === "0"){
         setRegisterError(t("verifyCodeError"))
-      } else if (data.error == "1") {
+      } else if (data.error === "1") {
         setRegisterError(t("verificationError"))
-      } else if (data.error == "2") {
+      } else if (data.error === "2") {
         setRegisterError(t("accountActivated"))
-      } else if (data.error == "3") {
+      } else if (data.error === "3") {
         setRegisterError(t("somethingWrong"))
       }
 

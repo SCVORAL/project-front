@@ -73,6 +73,21 @@ code {
   border-color: #0d6efd;
 }
 
+.section-add-fanfic .drop-area2{
+  width: 100%;
+  height: 250px;
+  border:  5px dashed black;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-add-fanfic .drop-area-blue2{
+  color: #0d6efd;
+  border-color: #0d6efd;
+}
+
 .section-tag .del-tag {
   background-color: rgb(49, 210, 242, .05);
   border-radius: 3px;
@@ -117,4 +132,11 @@ code {
 
 .option:hover {
   background-color: #cecece;
+}
+
+/*FanFicPage.js*/
+
+.section-fan-fic img{
+  width: 100%;
+  object-fit: cover;
 }

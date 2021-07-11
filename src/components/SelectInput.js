@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 
-export const SelectInput = ({list, onChange, name, isInvalid}) => {
+export const SelectInput = ({list, onChange, name, fandom, isInvalid}) => {
 
   const [tag, setTag] = useState({})
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState(fandom)
   const [isOptionsOpen, setOptionsState] = useState(false)
 
   useEffect(() => {
@@ -47,8 +47,8 @@ export const SelectInput = ({list, onChange, name, isInvalid}) => {
         />
 
         <div className={"options-list " + (isOptionsOpen ? 'options-list_show' : 'options-list_hidden')}>
-          {list.filter((tag) => tag.name.includes(searchValue.trim())).map(tag => 
-            <div className="option" onClick={() => selectTag(tag)} key={tag.id}>{tag.name}</div>
+          {list.filter((tag) => tag.name.includes(searchValue.trim())).map((tag, index) => 
+            <div className="option" onClick={() => selectTag(tag)} key={index}>{tag.name}</div>
           )}
         </div>
       </div>

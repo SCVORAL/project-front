@@ -1,14 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {AuthContext} from './context/AuthContext'
 import {useRoutes} from './routes'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {useAuth} from './hooks/auth'
 import { useTranslation } from "react-i18next"
 import {Navbar} from './components/Navbar'
-
-
-
-import axios from 'axios'
 
 function App() {
 
@@ -26,7 +22,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={{
-      token, login, logout, userId, isAuthenticated, checked, setChecked, users, setUsers, t, changeLanguage
+      token, login, logout, userId, isAuthenticated, checked, setChecked, users, setUsers, t, changeLanguage,
     }}>
     <Router>
       <Navbar />

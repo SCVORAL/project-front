@@ -3,7 +3,7 @@ import {isEmpty} from 'lodash'
 
 export const useInput = (validator, startValue) => {
 
-  const [value, setValue] = useState(startValue);
+  const [value, setValue] = useState(() => startValue);
   const [isValid, setValidity] = useState(validator(startValue));
   const [pristine, setPristine] = useState(false);
 
