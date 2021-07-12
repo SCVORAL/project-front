@@ -112,7 +112,8 @@ export const AddFanFic = () => {
 
     setFanDom(newFanDom)
 
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/addFandom`, {
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/addFandom`, {
+    const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/addFandom`, {
       name: fanDomNameInput.forTpl.value,
       imgBase64: imgFandom
     })
@@ -141,7 +142,8 @@ export const AddFanFic = () => {
 
     setTag(arrTag)
 
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/tagAdd`, {name: tagInput.forTpl.value})
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/tagAdd`, {name: tagInput.forTpl.value})
+    const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/tagAdd`, {name: tagInput.forTpl.value})
 
   }
 
