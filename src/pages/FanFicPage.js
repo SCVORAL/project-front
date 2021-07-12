@@ -32,7 +32,7 @@ export const FanFicPage = props => {
 
   const getFanFicId = async () => {
     // const {data} = await axios.post(`http://localhost:5000/api/fanfic/getFanFicId`, {idFanFic})
-    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/getFanFicId`, {idFanFic})
+    const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/getFanFicId`, {idFanFic})
 
     setFanFic(data)
   }
