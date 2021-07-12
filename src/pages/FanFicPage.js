@@ -1,7 +1,8 @@
-import React, { useState, useEffect} from "react"
+import React, { useState, useEffect, useContext} from "react"
 import {useInput} from '../hooks/input';
 import {emptyStringValidator} from '../helpers/validators'
 import {Link, useHistory} from 'react-router-dom'
+import {AuthContext} from './../context/AuthContext'
 import {EditFanFic} from './../components/EditFanFic'
 import {EditChapter} from './../components/EditChapter'
 import axios from 'axios'
@@ -14,6 +15,15 @@ export const FanFicPage = props => {
   const contentInput = useInput(emptyStringValidator, '')
   const history = useHistory()
 
+  const { t } = useContext(AuthContext)
+
+  let userRoleId = ''
+  let userId = ''
+  if (localStorage.getItem('userData')){
+    userRoleId = JSON.parse(localStorage.getItem('userData')).role
+    userId = JSON.parse(localStorage.getItem('userData')).userId
+  }
+
   useEffect(() => {
     getFanFicId()
   }, [reloadChapter])
@@ -21,7 +31,8 @@ export const FanFicPage = props => {
   const idFanFic = props.match.params.id
 
   const getFanFicId = async () => {
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/getFanFicId`, {idFanFic})
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/getFanFicId`, {idFanFic})
+    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/getFanFicId`, {idFanFic})
 
     setFanFic(data)
   }
@@ -40,11 +51,14 @@ export const FanFicPage = props => {
 
     setFanFic({...fanFic, chapters: newChapters})
 
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/addChapter`, {
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/addChapter`, {
+    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/addChapter`, {
       name: nameInput.forTpl.value,
       content: contentInput.forTpl.value,
       fanficId: fanFic.id
     })
+
+    setReloadChapter(!reloadChapter)
 
   }
 
@@ -56,12 +70,16 @@ export const FanFicPage = props => {
 
     setFanFic({...fanFic, chapters: newfan})
 
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/delChapter`, {id, fanficId})
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/delChapter`, {id, fanficId})
+    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/delChapter`, {id, fanficId})
+
+    setReloadChapter(!reloadChapter)
   }
 
   const deleteFanFic = async id => {
 
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/deleteFanFic`, {id})
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/deleteFanFic`, {id})
+    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/deleteFanFic`, {id})
 
     history.push('/')
 
@@ -70,37 +88,42 @@ export const FanFicPage = props => {
   const fanFicFull = () => {
     return (
       <div className="row">
-        <div className="col-3">
+        <div className="col-sm-3">
           { fanFic.urlImage
               ?  <img src={fanFic.urlImage} alt="" />
               :  <img src="https://res.cloudinary.com/scvoral/image/upload/v1625836530/woocommerce-placeholder_dlbx3k.png" alt="" />
           }
         </div>
-        <div className="col-9">
+        <div className="col-sm-9">
 
           <h2>{fanFic.name}</h2>
           <div className="row">
-            <div className="col">Author: {fanFic.user.name}</div>
-            <div className="col">Tags: {fanFic.tags} </div>
+            <div className="col">{t("author")}: {fanFic.user.name}</div>
           </div>
           <div>{fanFic.description}</div>
 
           <a className="btn btn-primary my-3" data-bs-toggle="collapse" href="#collapseRead" role="button" aria-expanded="false" aria-controls="collapseRead collapseAdd">
-            Read
+            {t("read")}
           </a>
 
-          <a className="btn btn-success my-3 mx-3" data-bs-toggle="collapse" href="#collapseAdd" role="button" aria-expanded="false" aria-controls="collapseAdd collapseRead">
-            Add Chapter
-          </a>
+          {
+            userRoleId === 1 || userId === fanFic.userId
+              ?
+                <>
+                  <a className="btn btn-success my-3 mx-3" data-bs-toggle="collapse" href="#collapseAdd" role="button" aria-expanded="false" aria-controls="collapseAdd collapseRead">
+                    {t("addChapter")}
+                  </a>
 
-          <button onClick={() => deleteFanFic(fanFic.id)} type="button" className="btn btn-danger my-3">Delete Fan Fic</button>
+                  <button onClick={() => deleteFanFic(fanFic.id)} type="button" className="btn btn-danger my-3">{t("deleteFanFic")}</button>
 
-          <EditFanFic 
-            fanFic={fanFic}
-            reloadChapter={reloadChapter}
-            setReloadChapter={setReloadChapter}
-          />
-
+                  <EditFanFic 
+                    fanFic={fanFic}
+                    reloadChapter={reloadChapter}
+                    setReloadChapter={setReloadChapter}
+                  />
+                </>
+              : null
+          }
 
           <div className="collapse" id="collapseRead">
             
@@ -122,13 +145,22 @@ export const FanFicPage = props => {
                   {
                     return (
                       <div key={index} className="tab-pane fade" id={"nav-" + i.id} role="tabpanel">
-                        <div>{i.content}</div>
-                        <button onClick={() => dellChapter(i)} type="button" className="btn btn-danger mt-3">Delete {i.name}</button>
-                        <EditChapter
-                          chapter={i}
-                          reloadChapter={reloadChapter}
-                          setReloadChapter={setReloadChapter}
-                        />
+                        {
+                          userRoleId === 1 || userId === fanFic.userId
+                            ?
+                              <>
+                                <button onClick={() => dellChapter(i)} type="button" className="btn btn-danger mt-3">{t("delete")} {i.name}</button>
+                                <EditChapter
+                                  chapter={i}
+                                  reloadChapter={reloadChapter}
+                                  setReloadChapter={setReloadChapter}
+                                />
+                              </>
+                            : null
+                        }
+
+                        <div className="mt-3">{i.content}</div>
+
                       </div>
                     )
                   }

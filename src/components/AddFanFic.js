@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import {useHistory} from 'react-router-dom'
 import {ChipsInput} from './ChipsInput'
 import {SelectInput} from './SelectInput'
 import {useInput} from '../hooks/input'
@@ -7,13 +8,15 @@ import axios from 'axios'
 
 export const AddFanFic = () => {
 
+  const history = useHistory()
+
   const nameInput = useInput(emptyStringValidator, '')
   const fanDomNameInput = useInput(emptyStringValidator, '')
   const tagInput = useInput(emptyStringValidator, '')
   const textInput = useInput(emptyStringValidator, '')
   const fandomInput = useInput(emptyObjectValidator, {})
   const tagsInput = useInput(emptyArrayValidator, [])
-  const [img, setImg] = useState({})
+  const [img, setImg] = useState(null)
   const [imgFandom, setImgFandom] = useState({})
 
   const [drag, setDrag] = useState(false)
@@ -22,22 +25,23 @@ export const AddFanFic = () => {
   const [fanDom, setFanDom] = useState([])
 
   const getTag = async () => {
-    const {data} = await axios.get(`http://localhost:5000/api/fanfic/gettags`)
-    // const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/gettags`)
+    // const {data} = await axios.get(`http://localhost:5000/api/fanfic/gettags`)
+    const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/gettags`)
 
     setTag(data)
   }
 
   const FanDom = async () => {
-    const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
-    // const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/getFandom`)
+    // const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
+    const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/getFandom`)
 
     setFanDom(data)
   }
 
   const AddFanFicHandler = async () => {
-    await axios.post(`http://localhost:5000/api/fanfic/addfanfic`, {
-    // await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/addfanfic`, {
+
+    // await axios.post(`http://localhost:5000/api/fanfic/addfanfic`, {
+    await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/addfanfic`, {
       userId: JSON.parse(localStorage.getItem("userData")).userId,
       name: nameInput.forTpl.value,
       fandomId: fandomInput.forTpl.value.id,
@@ -45,6 +49,8 @@ export const AddFanFic = () => {
       tags: tagsInput.forTpl.value.map( tag => tag.name ),
       description: textInput.forTpl.value
     })
+
+    history.push('/')
   }
 
   useEffect(() => {
@@ -152,6 +158,7 @@ export const AddFanFic = () => {
 
           <SelectInput 
             list={fanDom}
+            fandom={''}
             onChange={fandomInput.forTpl.onChange}
             isInvalid={!fandomInput.isValid && fandomInput.pristine}
             name="Fandom"
@@ -161,7 +168,7 @@ export const AddFanFic = () => {
             Add new Fan Dom
           </button>
 
-          <div className="modal fade" id="addFandom" tabindex="-1" aria-labelledby="addFandomLabel" aria-hidden="true">
+          <div className="modal fade" id="addFandom" tabIndex="-1" aria-labelledby="addFandomLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
@@ -173,7 +180,7 @@ export const AddFanFic = () => {
                   <input type="text" className="form-control" name="name" {...fanDomNameInput.forTpl} />
                   {!fanDomNameInput.isValid && fanDomNameInput.pristine ? <div>Name is incorrect</div> : null}
 
-                  <div class="my-3 drag-and-drop-block">
+                  <div className="my-3 drag-and-drop-block">
                     {
                       dragFandom
                         ? <div 
@@ -220,7 +227,7 @@ export const AddFanFic = () => {
             Add new Tag
           </button>
 
-          <div className="modal fade" id="addTag" tabindex="-1" aria-labelledby="addTagLabel" aria-hidden="true">
+          <div className="modal fade" id="addTag" tabIndex="-1" aria-labelledby="addTagLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
@@ -254,7 +261,7 @@ export const AddFanFic = () => {
             {!textInput.isValid && textInput.pristine ? <div>Text is incorrect</div> : null}
           </div>
 
-          <div class="mb-3 drag-and-drop-block">
+          <div className="mb-3 drag-and-drop-block">
             {
               drag
                 ? <div 

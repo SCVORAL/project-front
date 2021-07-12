@@ -22,7 +22,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={{
-      token, login, logout, userId, isAuthenticated, checked, setChecked, users, setUsers, t, changeLanguage,
+      token, login, logout, userId, isAuthenticated, checked, setChecked, users, setUsers, t, changeLanguage
     }}>
     <Router>
       <Navbar />

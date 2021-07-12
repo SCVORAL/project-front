@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext} from 'react'
 import {Lock, Unlock, Trash} from 'react-bootstrap-icons'
+import {AuthContext} from './../context/AuthContext'
+import {useHistory} from 'react-router-dom'
 import axios from 'axios'
 
 export const UserList = () => {
 
+  const {t} = useContext(AuthContext)
   const [users, setUsers] = useState(null)
   const [checked, setChecked] = useState([])
   const [reload, setReload] = useState(true)
+  const history = useHistory()
 
 
   const getAllUsers = async () => {
-    const {data} = await axios.get(`http://localhost:5000/api/auth/getAllUsers`)
+    // const {data} = await axios.get(`http://localhost:5000/api/auth/getAllUsers`)
+    const {data} = await axios.get(`http://project-back-node.herokuapp.com/api/auth/getAllUsers`)
 
     setUsers(data)
   }
@@ -42,27 +47,32 @@ export const UserList = () => {
   }
 
   const handelClickBlock = async () => {
-    await axios.post(`http://localhost:5000/api/auth/block`, {checked})
+    // await axios.post(`http://localhost:5000/api/auth/block`, {checked})
+    await axios.post(`http://project-back-node.herokuapp.com/api/auth/block`, {checked})
     setReload(!reload)
   }
 
   const handelClickUnlock = async () => {
-    await axios.post(`http://localhost:5000/api/auth/unlock`, {checked})
+    // await axios.post(`http://localhost:5000/api/auth/unlock`, {checked})
+    await axios.post(`http://project-back-node.herokuapp.com/api/auth/unlock`, {checked})
     setReload(!reload)
   }
 
   const handelClickTrash = async () => {
-    await axios.post(`http://localhost:5000/api/auth/delete`, {checked})
+    // await axios.post(`http://localhost:5000/api/auth/delete`, {checked})
+    await axios.post(`http://project-back-node.herokuapp.com/api/auth/delete`, {checked})
     setReload(!reload)
   }  
 
   const handelMakeAdmin = async () => {
-    await axios.post(`http://localhost:5000/api/auth/addAdmin`, {checked})
+    // await axios.post(`http://localhost:5000/api/auth/addAdmin`, {checked})
+    await axios.post(`http://project-back-node.herokuapp.com/api/auth/addAdmin`, {checked})
     setReload(!reload)
   }  
 
   const handelMakeUser = async () => {
-    await axios.post(`http://localhost:5000/api/auth/addUser`, {checked})
+    // await axios.post(`http://localhost:5000/api/auth/addUser`, {checked})
+    await axios.post(`http://project-back-node.herokuapp.com/api/auth/addUser`, {checked})
     setReload(!reload)
   }
 
@@ -73,18 +83,18 @@ export const UserList = () => {
         <button className="btn btn-primary" onClick={handelClickBlock}><Lock /></button>
         <button className="btn btn-primary mx-3" onClick={handelClickUnlock}><Unlock /></button>
         <button className="btn btn-danger" onClick={handelClickTrash}><Trash /></button>
-        <button className="btn btn-primary mx-3" onClick={handelMakeAdmin}>Make Admin</button>
-        <button className="btn btn-primary" onClick={handelMakeUser}>Make User</button>
+        <button className="btn btn-primary mx-3" onClick={handelMakeAdmin}>{t("makeAdmin")}</button>
+        <button className="btn btn-primary" onClick={handelMakeUser}>{t("makeUser")}</button>
 
         <table className="table">
           <thead>
             <tr>
               <th scope="col"></th>
               <th scope="col">#</th>
-              <th scope="col">Name</th>
+              <th scope="col">{t("name")}</th>
               <th scope="col">E-mail</th>
-              <th scope="col">Status</th>
-              <th scope="col">Is Admin</th>
+              <th scope="col">{t("status")}</th>
+              <th scope="col">{t("role")}</th>
             </tr>
           </thead>
           <tbody>

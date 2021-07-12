@@ -1,45 +1,44 @@
-import React, { useState, useEffect} from "react"
+import React, { useState, useEffect, useContext} from "react"
 import {useInput} from '../hooks/input'
 import {ChipsInput} from './ChipsInput'
 import {SelectInput} from './SelectInput'
+import {AuthContext} from './../context/AuthContext'
 import {emptyStringValidator, emptyObjectValidator, emptyArrayValidator} from '../helpers/validators'
 import axios from 'axios'
 
-export const EditFanFic = ({fanFic}) => {
-
-  console.log(fanFic)
+export const EditFanFic = ({fanFic, reloadChapter, setReloadChapter}) => {
 
   const nameInput = useInput(emptyStringValidator, fanFic.name)
   const fanDomNameInput = useInput(emptyStringValidator, fanFic.fandom.name)
   const textInput = useInput(emptyStringValidator, fanFic.description)
   const fandomInput = useInput(emptyObjectValidator, {})
-  const [img, setImg] = useState({})
+  const [img, setImg] = useState('')
   const [imgFandom, setImgFandom] = useState({})
+  const { t } = useContext(AuthContext)
 
   const [drag, setDrag] = useState(false)
   const [dragFandom, setDragFandom] = useState(false)
   const [fanDom, setFanDom] = useState([])
 
   const FanDom = async () => {
-    const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
-    // const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/getFandom`)
+    // const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
+    const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/getFandom`)
 
     setFanDom(data)
   }
 
-  // const AddFanFicHandler = async () => {
-  //   await axios.post(`http://localhost:5000/api/fanfic/addfanfic`, {
-  //   // await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/addfanfic`, {
-  //     userId: JSON.parse(localStorage.getItem("userData")).userId,
-  //     name: nameInput.forTpl.value,
-  //     fandomId: fandomInput.forTpl.value.id,
-  //     imgBase64: img,
-  //     description: textInput.forTpl.value
-  //   })
-  // }
+  const editFanFic = async () => {
+    // await axios.post(`http://localhost:5000/api/fanfic/editFanFic`, {
+    await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/editFanFic`, {
+      id: fanFic.id,
+      name: nameInput.forTpl.value,
+      fandomId: fandomInput.forTpl.value.id,
+      imgBase64: img,
+      urlImg: fanFic.urlImage,
+      description: textInput.forTpl.value
+    })
 
-  const editFanFic = () => {
-
+    setReloadChapter(!reloadChapter)
   }
 
   useEffect(() => {
@@ -100,7 +99,8 @@ export const EditFanFic = ({fanFic}) => {
 
     setFanDom(newFanDom)
 
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/addFandom`, {
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/addFandom`, {
+    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/addFandom`, {
       name: fanDomNameInput.forTpl.value,
       imgBase64: imgFandom
     })
@@ -110,19 +110,19 @@ export const EditFanFic = ({fanFic}) => {
   return (
 
     <>
-      <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        EditFanFic
+      <button type="button" className="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        {t("editFanFic")}
       </button>
 
       
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit FanFic</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Edit FanFic</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               
             <div className="section-add-fanfic">
               <div className="row justify-content-center align-items-center">
@@ -146,7 +146,7 @@ export const EditFanFic = ({fanFic}) => {
                     Add new Fan Dom
                   </button>
 
-                  <div className="modal fade" id="addFandom" tabindex="-1" aria-labelledby="addFandomLabel" aria-hidden="true">
+                  <div className="modal fade" id="addFandom" tabIndex="-1" aria-labelledby="addFandomLabel" aria-hidden="true">
                     <div className="modal-dialog">
                       <div className="modal-content">
                         <div className="modal-header">
@@ -157,7 +157,7 @@ export const EditFanFic = ({fanFic}) => {
                           <input type="text" className="form-control" name="name" {...fanDomNameInput.forTpl} />
                           {!fanDomNameInput.isValid && fanDomNameInput.pristine ? <div>Name is incorrect</div> : null}
 
-                          <div class="my-3 drag-and-drop-block">
+                          <div className="my-3 drag-and-drop-block">
                             {
                               dragFandom
                                 ? <div 
@@ -196,7 +196,7 @@ export const EditFanFic = ({fanFic}) => {
                     {!textInput.isValid && textInput.pristine ? <div>Text is incorrect</div> : null}
                   </div>
 
-                  <div class="mb-3 drag-and-drop-block">
+                  <div className="mb-3 drag-and-drop-block">
                     {
                       drag
                         ? <div 
@@ -221,7 +221,7 @@ export const EditFanFic = ({fanFic}) => {
             </div>
 
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button 
                 type="submit"
                 className="btn btn-primary"

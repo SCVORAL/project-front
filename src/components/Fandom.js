@@ -7,8 +7,8 @@ export const Fandom = () => {
   const [fandom, setFandom] = useState([])
 
   const getFandom = async () => {
-    const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
-    // const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/getFandom`)
+    // const {data} = await axios.get(`http://localhost:5000/api/fanfic/getFandom`)
+    const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/fanfic/getFandom`)
     setFandom(data)
   }
 
@@ -22,7 +22,7 @@ export const Fandom = () => {
 
       { fandom.map( i => 
         (
-          <div className='col-2' key={i.id}>
+          <div className='col-6 col-sm-4 col-lg-2 mb-5' key={i.id}>
             <Link to={'/fandom/' + i.id} className="item">
               <div className="box-img">
                 <img src={i.urlImage} />

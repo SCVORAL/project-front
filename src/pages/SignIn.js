@@ -1,11 +1,12 @@
 import React, {useState, useContext} from 'react'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useHistory} from 'react-router-dom'
 import {AuthContext} from './../context/AuthContext'
 import axios from 'axios'
 
 export const SignIn = () => {
 
   const {login, t} = useContext(AuthContext)
+  const history = useHistory()
   const [form, setForm] = useState({
     email: '',
     password: ''
@@ -19,22 +20,24 @@ export const SignIn = () => {
   const loginHandler = async () => {
     try {
 
-      const {data} = await axios.post(`http://localhost:5000/api/auth/login`, form)
-      // const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/auth/login`, form)
+      // const {data} = await axios.post(`http://localhost:5000/api/auth/login`, form)
+      const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/auth/login`, form)
 
       if(data.message === "0"){
-        setLoginError(t("incorrectData"))
+        return setLoginError(t("incorrectData"))
       } else if (data.message === "1"){
-        setLoginError(t("invalidPasswordOrEmail"))
+        return setLoginError(t("invalidPasswordOrEmail"))
       } else if (data.message === "2"){
-        setLoginError(t("somethingWrong"))
+        return setLoginError(t("somethingWrong"))
       }
 
       if(data.userStatus) {
         login(data.token, data.userId, data.roleId)
       } else {
-        alert(t("userBlock"))
+        return alert(t("userBlock"))
       }
+
+      history.push('/')
 
     } catch (e) {
     }
@@ -44,7 +47,7 @@ export const SignIn = () => {
     <div className="row justify-content-center align-items-center">
       <div className="col-6">
         <div className="mb-3">
-          <label className="form-label">Email address</label>
+          <label className="form-label">Email</label>
           <input type="email" className="form-control" name="email" onChange={changeHandler}/>
         </div>
         <div className="mb-3">
@@ -62,9 +65,9 @@ export const SignIn = () => {
           className="btn btn-primary"
           onClick={loginHandler}
         >
-          Login
+          {t("login")}
         </button>
-        <NavLink className="btn btn-primary ms-3" to="/signup">Sign Up</NavLink>
+        <NavLink className="btn btn-primary ms-3" to="/signup">{t("register")}</NavLink>
       </div>
     </div>
   )

@@ -11,5 +11,22 @@
   "emailAlredyRegistered": "Такой email уже зарегистрирован",
   "verificationError": "Введен неверный код или аккаунт уже активирован",
   "accountActivated": "Аккаунт активирован",
-  "verifyCodeError": "Введите код верификации"
+  "verifyCodeError": "Введите код верификации",
+  "home": "Главная",
+  "search": "Поиск",
+  "login": "Авторизация",
+  "logout": "Выйти",
+  "makeAdmin": "Сделать админом",
+  "makeUser": "Сделать пользователем",
+  "status": "Статус",
+  "role": "Роль",
+  "addFanFic": "Добавить ФанФик",
+  "usersList": "Список пользователей",
+  "read": "Читать",
+  "addChapter": "добавить главу",
+  "editFanFic": "редактировать ФанФик",
+  "deleteFanFic": "Удалить ФанФик",
+  "editChapter": "Редактировать главу",
+  "delete": "Удалить",
+  "author": "Автор"
 }

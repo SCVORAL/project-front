@@ -1,6 +1,7 @@
-import React, { useState, useEffect} from "react"
+import React, { useState, useEffect, useContext} from "react"
 import {useInput} from '../hooks/input'
 import {emptyStringValidator} from '../helpers/validators'
+import {AuthContext} from './../context/AuthContext'
 import axios from 'axios'
 
 export const EditChapter = ({chapter, reloadChapter, setReloadChapter}) => {
@@ -8,14 +9,11 @@ export const EditChapter = ({chapter, reloadChapter, setReloadChapter}) => {
   const [fanFic, setFanFic] = useState({})
   const nameInput = useInput(emptyStringValidator, chapter.name)
   const contentInput = useInput(emptyStringValidator, chapter.content)
-
-
-  useEffect(() => {
-
-  }, [])
+  const { t } = useContext(AuthContext)
 
   const editBtn = async () => {
-    const {data} = await axios.post(`http://localhost:5000/api/fanfic/updateChapter`, {
+    // const {data} = await axios.post(`http://localhost:5000/api/fanfic/updateChapter`, {
+    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/updateChapter`, {
       name: nameInput.forTpl.value,
       content: contentInput.forTpl.value,
       id: chapter.id
@@ -27,7 +25,7 @@ export const EditChapter = ({chapter, reloadChapter, setReloadChapter}) => {
   return (
     <>
       <button type="button" className="btn btn-primary mx-3 mt-3" data-bs-toggle="modal" data-bs-target={"#chapter" + chapter.id}>
-        Edit Chapter
+        {t("editChapter")}
       </button>
 
       <div className="modal fade" id={"chapter" + chapter.id} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

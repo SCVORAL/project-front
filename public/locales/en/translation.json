@@ -11,5 +11,22 @@
   "emailAlredyRegistered": "Email alredy registered",
   "verificationError": "Wrong code entered or account is already activated",
   "accountActivated": "Account activated",
-  "verifyCodeError": "Enter the verification code"
+  "verifyCodeError": "Enter the verification code",
+  "home": "Home",
+  "search": "Search",
+  "login": "Login",
+  "logout": "Logout",
+  "makeAdmin": "Make Admin",
+  "makeUser": "Make User",
+  "status": "Status",
+  "role": "Role",
+  "addFanFic": "Add FanFic",
+  "usersList": "Users list",
+  "read": "Read",
+  "addChapter": "Add Chapter",
+  "editFanFic": "Edit FanFic",
+  "deleteFanFic": "Delete FanFic",
+  "editChapter": "Edit Chapter",
+  "delete": "Delete",
+  "author": "Author"
 }
