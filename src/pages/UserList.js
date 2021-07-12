@@ -15,7 +15,7 @@ export const UserList = () => {
 
   const getAllUsers = async () => {
     // const {data} = await axios.get(`http://localhost:5000/api/auth/getAllUsers`)
-    const {data} = await axios.get(`http://project-back-node.herokuapp.com/api/auth/getAllUsers`)
+    const {data} = await axios.get(`https://project-back-node.herokuapp.com/api/auth/getAllUsers`)
 
     setUsers(data)
   }
@@ -48,31 +48,31 @@ export const UserList = () => {
 
   const handelClickBlock = async () => {
     // await axios.post(`http://localhost:5000/api/auth/block`, {checked})
-    await axios.post(`http://project-back-node.herokuapp.com/api/auth/block`, {checked})
+    await axios.post(`https://project-back-node.herokuapp.com/api/auth/block`, {checked})
     setReload(!reload)
   }
 
   const handelClickUnlock = async () => {
     // await axios.post(`http://localhost:5000/api/auth/unlock`, {checked})
-    await axios.post(`http://project-back-node.herokuapp.com/api/auth/unlock`, {checked})
+    await axios.post(`https://project-back-node.herokuapp.com/api/auth/unlock`, {checked})
     setReload(!reload)
   }
 
   const handelClickTrash = async () => {
     // await axios.post(`http://localhost:5000/api/auth/delete`, {checked})
-    await axios.post(`http://project-back-node.herokuapp.com/api/auth/delete`, {checked})
+    await axios.post(`https://project-back-node.herokuapp.com/api/auth/delete`, {checked})
     setReload(!reload)
   }  
 
   const handelMakeAdmin = async () => {
     // await axios.post(`http://localhost:5000/api/auth/addAdmin`, {checked})
-    await axios.post(`http://project-back-node.herokuapp.com/api/auth/addAdmin`, {checked})
+    await axios.post(`https://project-back-node.herokuapp.com/api/auth/addAdmin`, {checked})
     setReload(!reload)
   }  
 
   const handelMakeUser = async () => {
     // await axios.post(`http://localhost:5000/api/auth/addUser`, {checked})
-    await axios.post(`http://project-back-node.herokuapp.com/api/auth/addUser`, {checked})
+    await axios.post(`https://project-back-node.herokuapp.com/api/auth/addUser`, {checked})
     setReload(!reload)
   }
 

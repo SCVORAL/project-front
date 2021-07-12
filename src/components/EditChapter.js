@@ -13,7 +13,7 @@ export const EditChapter = ({chapter, reloadChapter, setReloadChapter}) => {
 
   const editBtn = async () => {
     // const {data} = await axios.post(`http://localhost:5000/api/fanfic/updateChapter`, {
-    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/updateChapter`, {
+    const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/updateChapter`, {
       name: nameInput.forTpl.value,
       content: contentInput.forTpl.value,
       id: chapter.id

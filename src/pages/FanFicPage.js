@@ -52,7 +52,7 @@ export const FanFicPage = props => {
     setFanFic({...fanFic, chapters: newChapters})
 
     // const {data} = await axios.post(`http://localhost:5000/api/fanfic/addChapter`, {
-    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/addChapter`, {
+    const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/addChapter`, {
       name: nameInput.forTpl.value,
       content: contentInput.forTpl.value,
       fanficId: fanFic.id
@@ -71,7 +71,7 @@ export const FanFicPage = props => {
     setFanFic({...fanFic, chapters: newfan})
 
     // const {data} = await axios.post(`http://localhost:5000/api/fanfic/delChapter`, {id, fanficId})
-    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/delChapter`, {id, fanficId})
+    const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/delChapter`, {id, fanficId})
 
     setReloadChapter(!reloadChapter)
   }
@@ -79,7 +79,7 @@ export const FanFicPage = props => {
   const deleteFanFic = async id => {
 
     // const {data} = await axios.post(`http://localhost:5000/api/fanfic/deleteFanFic`, {id})
-    const {data} = await axios.post(`http://project-back-node.herokuapp.com/api/fanfic/deleteFanFic`, {id})
+    const {data} = await axios.post(`https://project-back-node.herokuapp.com/api/fanfic/deleteFanFic`, {id})
 
     history.push('/')
 
